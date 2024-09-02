@@ -54,7 +54,7 @@ export function Header() {
 				</Link>
 			</Typography>
 			<Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-				<Link to="/#" className={`flex items-center ${pathname === '/#' ? 'text-blue-500' : ''}`}>
+				<Link to="/projects" className={`flex items-center ${pathname === '/projects' ? 'text-blue-500' : ''}`}>
 					Projects
 				</Link>
 			</Typography>
