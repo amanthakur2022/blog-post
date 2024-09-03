@@ -9,13 +9,9 @@ const generateToken = async (user) => {
 };
 
 const getDataFromToken = async (user) => {
-	try {
-		const token = user.cookies.get('jwt-cookie')?.value || '';
-		const decodedToken = await jwt.verify(token, process.env.JWT_KEY);
-		return decodedToken.id;
-	} catch (err) {
-		res.status(500).json({ error: err.message });
-	}
+	const token = user?.replace('jwt-cookie=', '');
+	const decodedToken = await jwt.verify(token, process.env.JWT_KEY);
+	return decodedToken.userId;
 };
 
-module.exports = {generateToken, getDataFromToken};
+module.exports = { generateToken, getDataFromToken };
