@@ -30,7 +30,7 @@ userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
 userSchema.pre('save', async function (next) {
 	const user = this;
 	if (user.isModified('password')) {
-		user.password = await bcrypt.hash(user.password, 10);
+		user.password = await bcrypt.hashSync(user.password, 10);
 	}
 	next();
 });
@@ -38,7 +38,7 @@ userSchema.pre('save', async function (next) {
 // match password
 userSchema.methods.isPasswordMatch = async function (password) {
 	const user = this;
-	return bcrypt.compare(password, user.password);
+	return bcrypt.compareSync(password, user.password);
 };
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);
