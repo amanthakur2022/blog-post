@@ -1,28 +1,38 @@
 const express = require('express');
+const { getDataFromToken } = require('../utils/jwt');
 const {
 	register,
-	loginUser,
+	verify,
+	login,
+	resendVerification,
+	getAuthenticatedUser,
 	logoutUser,
 	getUsers,
-	getUserProfile,
 	getUserById,
 	updateUserById,
-	deleteUserById
-} = require('../controllers/User.controller');
+	deleteUserById,
+	getUserProfile
+} = require('../controllers/AuthController');
 
 const router = express.Router();
 
 router.route('/register').post(register);
 
-router.route('/login').post(loginUser);
+router.get('/verify/:token', verify);
+
+router.post('/login', login);
+
+router.post('/verify/resend', resendVerification);
+
+router.get('/', getDataFromToken, getAuthenticatedUser);
 
 router.route('/logout').post(logoutUser);
 
 router.route('/users').get(getUsers);
 
-router.route('/user/profile').get(getUserProfile);
-
 router.route('/user/:id').get(getUserById);
+
+router.get('/profile', getDataFromToken, getUserProfile);
 
 router.route('/user/:id').put(updateUserById);
 
